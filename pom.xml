@@ -2,10 +2,10 @@
 		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sf.jasperreports</groupId>
-	<artifactId>jasperreports</artifactId>
-	<version>4.7.0</version>
+	<artifactId>jasperreports-scala</artifactId>
+	<version>4.6.0</version>
 	<packaging>jar</packaging>
-	<name>JasperReports</name>
+	<name>JasperReports-Scala</name>
 	<url>http://jasperreports.sourceforge.net</url>
 	<description>JasperReports Library</description>
 	<licenses>
@@ -16,36 +16,23 @@
 		</license>
 	</licenses>
 	<scm>
-		<connection>scm:svn:http://jasperforge.org/svn/repos/jasperreports</connection>
-		<tag>jr-4-7-0</tag>
-		<url>http://jasperforge.org/scm/viewvc.php/?root=jasperreports</url>
+		<connection>ssh://slwkf1@git.code.sf.net/p/jr-scala/code</connection>
+		<tag>jr-scala</tag>
+		<url>https://sourceforge.net/p/jr-scala/code/ci/64413965ba5eb4a3209f7d4395d0057ff6c7fc28/tree/</url>
 	</scm>
 	<developers>
 		<developer>
-			<id>teodord</id>
-			<name>Teodor Danciu</name>
-			<email>teodord@users.sourceforge.net</email>
-			<url>http://sourceforge.net/users/teodord</url>
+			<id>slwkf1</id>
+			<name>Steve Park</name>
+			<email>slwkf1@users.sourceforge.net</email>
+			<url>http://sourceforge.net/users/slwkf1</url>
 			<organization>Jaspersoft Corporation</organization>
 			<organizationUrl>http://www.jaspersoft.com</organizationUrl>
 			<roles>
 				<role>architect</role>
 				<role>developer</role>
 			</roles>
-			<timezone>+2</timezone>
-		</developer>
-		<developer>
-			<id>lucianc</id>
-			<name>Lucian Chirita</name>
-			<email>lucianc@users.sourceforge.net</email>
-			<url>http://sourceforge.net/users/lucianc</url>
-			<organization>Jaspersoft Corporation</organization>
-			<organizationUrl>http://www.jaspersoft.com</organizationUrl>
-			<roles>
-				<role>architect</role>
-				<role>developer</role>
-			</roles>
-			<timezone>+2</timezone>
+			<timezone>-6</timezone>
 		</developer>
 	</developers>
 	<repositories>
@@ -77,6 +64,33 @@
 			</resource>
 		</resources>
 		<plugins>
+			<!-- Use Ant to unpackage the JasperReports library -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+                        <id>unpackage-jr</id>
+						<phase>compile</phase>
+						<configuration>  
+							<target name="unjar-jr">
+								<unjar src="${basedir}/lib/jasperreports-4.6.0.jar"
+									dest="${basedir}/target/classes"
+									overwrite="false">
+									<patternset>
+										<include name="**/*.class"/>
+										<exclude name="**/JRReport.class"/>
+									</patternset>
+								</unjar>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -85,31 +99,6 @@
 					<source>1.6</source>
 					<target>1.6</target>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.4</version>
-				<executions>
-					<execution>
-						<id>copy_additional_resources</id>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<phase>process-resources</phase>
-						<configuration>
-							<outputDirectory>${basedir}/target/classes</outputDirectory>
-							<resources>
-								<resource>
-									<directory>${basedir}</directory>
-									<includes>
-										<include>license.txt</include>
-									</includes>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

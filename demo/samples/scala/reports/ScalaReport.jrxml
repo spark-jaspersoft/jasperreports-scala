@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ScalaReport" language="scala" pageWidth="595" pageHeight="842" columnWidth="515" leftMargin="40" rightMargin="40" topMargin="50" bottomMargin="50" uuid="bb18295f-3831-4e6c-bd0d-472ddbcbbbd5">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="162"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="Color" class="java.lang.String">
 		<defaultValueExpression><![CDATA["Orange"]]></defaultValueExpression>
 	</parameter>
@@ -24,7 +24,7 @@
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["This sample uses Scala Version 2.9.1.\n" + "It uses code based on the example at http://www.scala-lang.org/node/228"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["This sample uses Scala Version 2.9.3.\n" + "It uses code based on the example at http://www.scala-lang.org/node/228"]]></textFieldExpression>
 				<hyperlinkReferenceExpression><![CDATA["http://www.scala-lang.org/node/228"]]></hyperlinkReferenceExpression>
 			</textField>
 			<textField>

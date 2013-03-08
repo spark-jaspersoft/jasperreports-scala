@@ -132,7 +132,7 @@ public class JRScalaCompiler extends JRAbstractJavaCompiler {
 								out.write(inputChar);
 							}
 							units[i].setCompileData(out.toByteArray());
-							classFile.deleteOnExit();
+							//classFile.deleteOnExit();
 						}
 					}
 				}
@@ -155,7 +155,7 @@ public class JRScalaCompiler extends JRAbstractJavaCompiler {
 	 * @see net.sf.jasperreports.engine.design.JRAbstractCompiler#getSourceFileName(java.lang.String)
 	 */
 	protected String getSourceFileName(String unitName) {
-		System.out.println(unitName + ".scala");
+		//System.out.println(unitName + ".scala");
 		return unitName + ".scala";
 	}
 	

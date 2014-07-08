@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ScalaReport" language="scala" pageWidth="595" pageHeight="842" columnWidth="515" leftMargin="40" rightMargin="40" topMargin="50" bottomMargin="50" uuid="bb18295f-3831-4e6c-bd0d-472ddbcbbbd5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Color" class="java.lang.String">
+		<defaultValueExpression><![CDATA["Orange"]]></defaultValueExpression>
+	</parameter>
+	<variable name="Chart" class="net.sf.jasperreports.engine.JRRenderable" calculation="System"/>
+	<title>
+		<band height="742">
+			<line>
+				<reportElement uuid="1c432757-8d69-4d2c-aa1b-465d0ec22731" x="0" y="0" width="515" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="be52a74f-4d18-4cf8-b893-c6f30ae7a6ef" x="0" y="10" width="515" height="30"/>
+				<textElement textAlignment="Center">
+					<font size="22"/>
+				</textElement>
+				<text><![CDATA[Scala Sample]]></text>
+			</staticText>
+			<textField hyperlinkType="Reference" hyperlinkTarget="Blank">
+				<reportElement uuid="0bb453c4-9cde-40b7-973a-79027f649641" x="0" y="50" width="515" height="50"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["This sample uses Scala Version 2.9.3.\n" + "It uses code based on the example at http://www.scala-lang.org/node/228"]]></textFieldExpression>
+				<hyperlinkReferenceExpression><![CDATA["http://www.scala-lang.org/node/228"]]></hyperlinkReferenceExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4f712f24-511b-495e-a813-9aaffbbbc9ef" x="280" y="150" width="200" height="35"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Color}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d482591f-90ee-4088-8779-89070a858681" positionType="Float" x="0" y="150" width="259" height="35"/>
+				<textElement textAlignment="Right">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Color =]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f4490e7e-c571-4d25-9bd2-10deb7cb820c" positionType="Float" x="0" y="190" width="259" height="35"/>
+				<textElement textAlignment="Right">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Scala color match: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="1f2ccc95-f030-4b25-b5d4-99d272a90485" x="280" y="190" width="200" height="75" forecolor="#008000"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<textFieldExpression><![CDATA[val colors = scala.collection.mutable.Map[String,Int]("Red" -> 0xFF0000,
+                   "Turquoise" -> 0x00FFFF,
+                   "Black" -> 0x000000,
+                   "Orange" -> 0xFF8040,
+                   "Brown" -> 0x804000)
+
+def getCode(name: String):String = {
+    colors.get(name) match {
+        case Some(code) =>
+            name + " has code: " + code
+        case None =>
+            "Unknown color: " + name
+    }
+}
+
+getCode($P{Color})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="58f855c6-e34c-48c2-b552-8ff72be96089" positionType="Float" x="0" y="270" width="480" height="35"/>
+				<textElement textAlignment="Center">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Scala Expression Syntax:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ec1183a9-bba7-4ef3-b257-ccdae6792212" x="20" y="310" width="460" height="290"/>
+				<textElement markup="none">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[// Static Map value
+val colors = scala.collection.mutable.Map[String,Int]("Red" -> 0xFF0000,
+                    "Turquoise" -> 0x00FFFF,
+                    "Black" -> 0x000000,
+                    "Orange" -> 0xFF8040,
+                    "Brown" -> 0x804000)
+
+// Function definition
+def getCode(name: String):String = {
+     colors.get(name) match {
+         case Some(code) =>
+             name + " has code: " + code
+         case None =>
+             "Unknown color: " + name
+     }
+ }
+
+// Function call that returns a Java String
+getCode($P{Color})]]></text>
+			</staticText>
+		</band>
+	</title>
+</jasperReport>

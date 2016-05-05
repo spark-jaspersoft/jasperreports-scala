@@ -6,7 +6,7 @@ package net.sf.jasperreports.compilers;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.Collections;
+//import java.util.Collections;
 import java.util.Iterator;
 
 import net.sf.jasperreports.engine.DefaultJasperReportsContext;
@@ -19,7 +19,7 @@ import net.sf.jasperreports.engine.design.JRCompilationUnit;
 import net.sf.jasperreports.engine.design.JRDefaultCompilationSourceCode;
 import net.sf.jasperreports.engine.design.JRSourceCompileTask;
 import scala.Function1;
-import scala.collection.immutable.List;
+//import scala.collection.immutable.List;
 import scala.collection.mutable.ListBuffer;
 import scala.collection.mutable.StringBuilder;
 import scala.tools.nsc.CompilationUnits.CompilationUnit;
@@ -70,6 +70,7 @@ public class JRScalaCompiler extends JRAbstractJavaCompiler {
 	/**
 	 * @see net.sf.jasperreports.engine.design.JRAbstractCompiler#compileUnits(net.sf.jasperreports.engine.design.JRCompilationUnit[], java.lang.String, java.io.File)
 	 */
+	@Override
 	protected String compileUnits(JRCompilationUnit[] units, String classpath,
 			File tempDirFile) throws JRException {
 		try {
@@ -93,14 +94,15 @@ public class JRScalaCompiler extends JRAbstractJavaCompiler {
 			if (command.settings().version().value().equals(Boolean.TRUE)) {
 				reporter.info(null, "scala compiler " + Properties.versionString() + " -- " + Properties.copyrightString() , true);
 			} else {
-				if (command.settings().target().value().equals("msil")) {
+				// spark: MSIL backend was removed in Scala 2.10
+				/*if (command.settings().target().value().equals("msil")) {
 					String libPath = System.getProperty("msil.libpath");
 					if (libPath != null) {
 						List valueList = new ListBuffer().toList();
 						valueList.addString(new StringBuilder(command.settings().assemrefs().value() + File.pathSeparator + libPath));
 						command.settings().assemrefs().tryToSet(valueList);
 					}
-				}
+				}*/
 				if (reporter.hasErrors()) {
 					reporter.flush();
 					return null;
@@ -108,7 +110,7 @@ public class JRScalaCompiler extends JRAbstractJavaCompiler {
 				if (command.shouldStopWithInfo()) {
 					reporter.info(null, command.getInfoMessage(global), true);
 				} else {
-					if (command.settings().resident().value().equals(Boolean.TRUE)) {
+					if (command.settings().resident().value()) {
 						resident(global);
 					} else if (command.files().isEmpty()) {
 						reporter.info(null, command.usageMsg(), true);
@@ -146,6 +148,7 @@ public class JRScalaCompiler extends JRAbstractJavaCompiler {
 	/**
 	 * @see net.sf.jasperreports.engine.design.JRAbstractCompiler#generateSourceCode(net.sf.jasperreports.engine.design.JRSourceCompileTask)
 	 */
+	@Override
 	protected JRCompilationSourceCode generateSourceCode(
 			JRSourceCompileTask sourceTask) throws JRException {
 		return new JRDefaultCompilationSourceCode(JRScalaGenerator.generateClass(sourceTask), null);
